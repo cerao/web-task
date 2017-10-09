@@ -37,266 +37,241 @@ window.onclick = function(event) {
 }
 
 function add(){
-    if (navigator.onLine) {
-        var hr = new XMLHttpRequest();
-        var url = "db.php";
-        var fn = document.getElementById("same_payment").value;
-        var ln = document.getElementById("amount").value;
-        var fnn = document.getElementById("categoryID").value;
-        var date = document.getElementById("dateID").value;
-        var textID = document.getElementById("textID").value;
+    var hr = new XMLHttpRequest();
+    var url = "db.php";
+    var fn = document.getElementById("same_payment").value;
+    var ln = document.getElementById("amount").value;
+    var fnn = document.getElementById("categoryID").value;
+    var date = document.getElementById("dateID").value;
+    var textID = document.getElementById("textID").value;
 
-        if (count>0) {
-            var vars = "same_payment="+array_same_payment+"&amount="+array_amount+"&categoryID="+array_categoryID+"&date="+array_dateID+"&textID="+array_textID;
-            hr.open("POST", url, true);
-            hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            hr.onreadystatechange = function() {
-              if(hr.readyState == 4 && hr.status == 200) {
-                var return_data = hr.responseText;
-                if (return_data=='ok'){
-                    close_wind();
-                    if (category_name==fnn) {
-                        category(category_name);
-                    }
-                }
-                else{
-                    alert("gtxovt sheavsot velebi")
-                }
-              }
-            }
-            hr.send(vars);
-            document.getElementById("textID").innerHTML = "processing...";
-        }
-        else if (fn!='' && ln!='' && fnn!='' && date!=''){
-            var vars = "same_payment="+fn+"&amount="+ln+"&categoryID="+fnn+"&date="+date+"&textID="+textID;
-            hr.open("POST", url, true);
-            hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            hr.onreadystatechange = function() {
-              if(hr.readyState == 4 && hr.status == 200) {
-                var return_data = hr.responseText;
-                if (return_data=='ok'){
-                    close_wind();
-                    if (category_name==fnn) {
-                        category(category_name);
-                    }
-                }
-                else{
-                    alert("gtxovt sheavsot velebi")
-                }
-              }
-            }
-            hr.send(vars);
-            document.getElementById("textID").innerHTML = "processing...";
-        }
-        else{
-            alert("sheavse velebi");
-        }
-    }else{
-        if (fn!='' && ln!='' && fnn!='' && date!=''){
-            array_same_payment=fn;
-            array_amount=ln;
-            array_categoryID=fnn;
-            array_dateID=date;
-            array_textID=textID;
-        }
-    }
-}
-function index(value){
-    if (navigator.onLine) {
-    
-    
-        category_name = value;
-        var hr = new XMLHttpRequest();
-        var url = "default.php";
-        var clasname;
-        var p=0;
-        var vars = "category="+value;
+    if (fn!='' && ln!='' && fnn!='' && date!=''){
+        var vars = "same_payment="+fn+"&amount="+ln+"&categoryID="+fnn+"&date="+date+"&textID="+textID;
         hr.open("POST", url, true);
         hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         hr.onreadystatechange = function() {
           if(hr.readyState == 4 && hr.status == 200) {
-            var data = hr.responseText;
-            
-            
-            try{
-                data = JSON.parse(data);
-                global_array = data;
-            }catch(e){
-                data=[];
-            }
-            //
-            document.getElementById('record_id').innerHTML="";
-
-            for (var i = 0; i < data.length; i++) {
-
-                if (data[i][5]!='') {
-
-                    clasname = 'comment';
+            var return_data = hr.responseText;
+            if (return_data=='ok'){
+                close_wind();
+                if (category_name==fnn) {
+                    category(category_name);
                 }
-                else{
-                    clasname = 'displayclas';
-                }
-                p +=parseInt(data[i][2]); 
-            document.getElementById('record_id').innerHTML+='<div class="rocordDela"><div class="payrecord"><div class="Recordpayment"><div class="peytittle">'+data[i][1]+'</div><button class="filtrButton">'+value+'</button></div><div class="dategel"><div class="Moneytittle">'+data[i][3]+'</div><div class="Money">'+data[i][2]+'</div><div class="gel">GEL</div></div></div><div class="'+clasname+'"><div class="comTittle">coment:</div><div class="comText">'+data[i][5]+'</div></div></div>';
             }
-            document.getElementById('payid').innerHTML=p;
+            else{
+                alert("gtxovt sheavsot velebi")
+            }
           }
         }
         hr.send(vars);
-    }else{
-            document.getElementById('record_id').innerHTML="";
-
-            for (var i = 0; i < global_array.length; i++) {
-
-                if (global_array[i][5]!='') {
-
-                    clasname = 'comment';
-                }
-                else{
-                    clasname = 'displayclas';
-                }
-                p +=parseInt(global_array[i][2]); 
-            document.getElementById('record_id').innerHTML+='<div class="rocordDela"><div class="payrecord"><div class="Recordpayment"><div class="peytittle">'+global_array[i][1]+'</div><button class="filtrButton">'+value+'</button></div><div class="dategel"><div class="Moneytittle">'+global_array[i][3]+'</div><div class="Money">'+global_array[i][2]+'</div><div class="gel">GEL</div></div></div><div class="'+clasname+'"><div class="comTittle">coment:</div><div class="comText">'+global_array[i][5]+'</div></div></div>';
-            }
-            document.getElementById('payid').innerHTML=p;
+        document.getElementById("textID").innerHTML = "processing...";
     }
+    else{
+        alert("sheavse velebi");
+    }
+}
+function index(value){
+    category_name = value;
+    var hr = new XMLHttpRequest();
+    var url = "default.php";
+    var clasname;
+    var p=0;
+    var vars = "category="+value;
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    hr.onreadystatechange = function() {
+      if(hr.readyState == 4 && hr.status == 200) {
+        var data = hr.responseText;
+        
+        
+        try{
+            data = JSON.parse(data);
+        }catch(e){
+            data=[];
+        }
+        //
+        document.getElementById('record_id').innerHTML="";
+
+        for (var i = 0; i < data.length; i++) {
+
+            if (data[i][5]!='') {
+
+                clasname = 'comment';
+            }
+            else{
+                clasname = 'displayclas';
+            }
+            p +=parseInt(data[i][2]); 
+        document.getElementById('record_id').innerHTML+='<div class="rocordDela"><div class="payrecord"><div class="Recordpayment"><div class="peytittle">'+data[i][1]+'</div><button class="filtrButton">'+value+'</button></div><div class="dategel"><div class="Moneytittle">'+data[i][3]+'</div><div class="Money">'+data[i][2]+'</div><div class="gel">GEL</div></div></div><div class="'+clasname+'"><div class="comTittle">coment:</div><div class="comText">'+data[i][5]+'</div></div></div>';
+        }
+        document.getElementById('payid').innerHTML=p;
+      }
+    }
+    hr.send(vars);
 }
 
 
 function category(value){
-    if (navigator.onLine) {
+    var hr = new XMLHttpRequest();
+    var url = "test.php";
+    var clasname;
+    var p=0;
+    category_name = value;
 
-        var hr = new XMLHttpRequest();
-        var url = "test.php";
-        var clasname;
-        var p=0;
-        category_name = value;
-
-        var from = document.getElementById("from").value;
-        var to = document.getElementById("to").value;
-        var datefrom = document.getElementById("datefrom").value;
-        var dateto = document.getElementById("dateto").value;
-        var vars = "category="+value+"&from="+from+"&to="+to+"&datefrom="+datefrom+"&dateto="+dateto;
-        hr.open("POST", url, true);
-        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        hr.onreadystatechange = function() {
-          if(hr.readyState == 4 && hr.status == 200) {
-            var data = hr.responseText;
-            
-            
-            try{
-                data = JSON.parse(data);
-                global_array = data;
-            }catch(e){
-                data=[];
-            }
-            //
-            document.getElementById('record_id').innerHTML="";
-
-            for (var i = 0; i < data.length; i++) {
-
-                if (data[i][5]!='') {
-
-                    clasname = 'comment';
-                }
-                else{
-                    clasname = 'displayclas';
-                }
-                p +=parseInt(data[i][2]); 
-            document.getElementById('record_id').innerHTML+='<div class="rocordDela"><div class="payrecord"><div class="Recordpayment"><div class="peytittle">'+data[i][1]+'</div><button class="filtrButton">'+value+'</button></div><div class="dategel"><div class="Moneytittle">'+data[i][3]+'</div><div class="Money">'+data[i][2]+'</div><div class="gel">GEL</div></div></div><div class="'+clasname+'"><div class="comTittle">coment:</div><div class="comText">'+data[i][5]+'</div></div></div>';
-            }
-            document.getElementById('payid').innerHTML=p;
-          }
+    var from = document.getElementById("from").value;
+    var to = document.getElementById("to").value;
+    var datefrom = document.getElementById("datefrom").value;
+    var dateto = document.getElementById("dateto").value;
+    var vars = "category="+value+"&from="+from+"&to="+to+"&datefrom="+datefrom+"&dateto="+dateto;
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    hr.onreadystatechange = function() {
+      if(hr.readyState == 4 && hr.status == 200) {
+        var data = hr.responseText;
+        
+        
+        try{
+            data = JSON.parse(data);
+        }catch(e){
+            data=[];
         }
-        hr.send(vars);
-    }else{
-            document.getElementById('record_id').innerHTML="";
+        //
+        document.getElementById('record_id').innerHTML="";
 
-            for (var i = 0; i < global_array.length; i++) {
+        for (var i = 0; i < data.length; i++) {
 
-                if (global_array[i][5]!='') {
+            if (data[i][5]!='') {
 
-                    clasname = 'comment';
-                }
-                else{
-                    clasname = 'displayclas';
-                }
-                p +=parseInt(global_array[i][2]); 
-            document.getElementById('record_id').innerHTML+='<div class="rocordDela"><div class="payrecord"><div class="Recordpayment"><div class="peytittle">'+global_array[i][1]+'</div><button class="filtrButton">'+value+'</button></div><div class="dategel"><div class="Moneytittle">'+global_array[i][3]+'</div><div class="Money">'+global_array[i][2]+'</div><div class="gel">GEL</div></div></div><div class="'+clasname+'"><div class="comTittle">coment:</div><div class="comText">'+global_array[i][5]+'</div></div></div>';
+                clasname = 'comment';
             }
-            document.getElementById('payid').innerHTML=p;
+            else{
+                clasname = 'displayclas';
+            }
+            p +=parseInt(data[i][2]); 
+        document.getElementById('record_id').innerHTML+='<div class="rocordDela"><div class="payrecord"><div class="Recordpayment"><div class="peytittle">'+data[i][1]+'</div><button class="filtrButton">'+value+'</button></div><div class="dategel"><div class="Moneytittle">'+data[i][3]+'</div><div class="Money">'+data[i][2]+'</div><div class="gel">GEL</div></div></div><div class="'+clasname+'"><div class="comTittle">coment:</div><div class="comText">'+data[i][5]+'</div></div></div>';
+        }
+        document.getElementById('payid').innerHTML=p;
+      }
     }
+    hr.send(vars);
 }
 
 
 function filtersearch(){
-    if (navigator.onLine) {
-        var hr = new XMLHttpRequest();
-        var url = "filtersearch.php";
-        var searchID = document.getElementById("searchID").value;
+    var hr = new XMLHttpRequest();
+    var url = "filtersearch.php";
+    var searchID = document.getElementById("searchID").value;
 
-        var vars = "searchID="+searchID;
-        var name;
-        hr.open("POST", url, true);
-        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        hr.onreadystatechange = function() {
-          if(hr.readyState == 4 && hr.status == 200) {
-            var data = hr.responseText;
-            
-            data = JSON.parse(data);
-            global_array = data;
-            document.getElementById('record_id').innerHTML="";
-            for (var i = 0; i < data.length; i++) {
-                if (data[i][4]==1) {
-                    var name = 'foot';
-                }
-                if (data[i][4]==3) {
-                    name = 'mobile services';
-                }
-                if (data[i][4]==2) {
-                    name = 'gasoline';
-                }
-                if (data[i][4]==4) {
-                    name = 'transport';
-                }
-                if (data[i][4]==5) {
-                    name = 'charity';
-                }
-            document.getElementById('record_id').innerHTML+="<div class='rocordDela'><div class='payrecord'><div class='Recordpayment'><div class='peytittle'>"+data[i][1]+"</div><button class='filtrButton'>"+name+"</button></div><div class='Moneytittle'>"+data[i][3]+"</div><div class='Money'>"+data[i][2]+"</div><div class='gel'>GEL</div></div>"
-            
-            if (data[i][5]!='') {
-                document.getElementById('record_id').innerHTML+="<div class='comment'><div class='comTittle'>coment:</div><div class='comText'>"+data[i][5]+"</div></div>";
+    var vars = "searchID="+searchID;
+    var name;
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    hr.onreadystatechange = function() {
+      if(hr.readyState == 4 && hr.status == 200) {
+        var data = hr.responseText;
+        
+        data = JSON.parse(data);
+        document.getElementById('record_id').innerHTML="";
+        for (var i = 0; i < data.length; i++) {
+            if (data[i][4]==1) {
+                var name = 'foot';
             }
-            document.getElementById('record_id').innerHTML+="</div>";
+            if (data[i][4]==3) {
+                name = 'mobile services';
             }
-
-          }
+            if (data[i][4]==2) {
+                name = 'gasoline';
+            }
+            if (data[i][4]==4) {
+                name = 'transport';
+            }
+            if (data[i][4]==5) {
+                name = 'charity';
+            }
+        document.getElementById('record_id').innerHTML+="<div class='rocordDela'><div class='payrecord'><div class='Recordpayment'><div class='peytittle'>"+data[i][1]+"</div><button class='filtrButton'>"+name+"</button></div><div class='Moneytittle'>"+data[i][3]+"</div><div class='Money'>"+data[i][2]+"</div><div class='gel'>GEL</div></div>"
+        
+        if (data[i][5]!='') {
+            document.getElementById('record_id').innerHTML+="<div class='comment'><div class='comTittle'>coment:</div><div class='comText'>"+data[i][5]+"</div></div>";
         }
-        hr.send(vars);
-    }else{
-            document.getElementById('record_id').innerHTML="";
-            for (var i = 0; i < global_array.length; i++) {
-                if (global_array[i][4]==1) {
-                    var name = 'foot';
-                }
-                if (global_array[i][4]==3) {
-                    name = 'mobile services';
-                }
-                if (global_array[i][4]==2) {
-                    name = 'gasoline';
-                }
-                if (global_array[i][4]==4) {
-                    name = 'transport';
-                }
-                if (global_array[i][4]==5) {
-                    name = 'charity';
-                }
-            document.getElementById('record_id').innerHTML+="<div class='rocordDela'><div class='payrecord'><div class='Recordpayment'><div class='peytittle'>"+global_array[i][1]+"</div><button class='filtrButton'>"+name+"</button></div><div class='Moneytittle'>"+global_array[i][3]+"</div><div class='Money'>"+global_array[i][2]+"</div><div class='gel'>GEL</div></div>"
-            
-            if (global_array[i][5]!='') {
-                document.getElementById('record_id').innerHTML+="<div class='comment'><div class='comTittle'>coment:</div><div class='comText'>"+global_array[i][5]+"</div></div>";
-            }
-            document.getElementById('record_id').innerHTML+="</div>";
-            }
+        document.getElementById('record_id').innerHTML+="</div>";
+        }
+
+      }
     }
+    hr.send(vars);
+}
+
+function chart(){
+
+
+
+
+
+ var hr = new XMLHttpRequest();
+    var url = "chart.php";
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    hr.onreadystatechange = function() {
+      if(hr.readyState == 4 && hr.status == 200) {
+        var data = hr.responseText;
+        
+        data = JSON.parse(data);
+      }
+    }
+    hr.send(vars);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    new Chart(document.getElementById("bar-chart"),{
+    type: 'bar',
+    data: {
+      labels: ["jan", "Feb", "mar", "Apr", "may","iun","iul","evg","sef","oqt","nov","dec"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd",],
+          data: [28,27,74,74,43,85,96,48,76,86,152]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Peyment pey manth'
+      }
+    }
+});
+
+new Chart(document.getElementById("bar-chart_one"),{
+    type: 'bar',
+    data: {
+      labels: ["jan", "Feb", "mar", "Apr", "may","iun","iul","evg","sef","oqt","nov","dec"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd",],
+          data: [28,27,74,74,43,85,96,48,76,86,152]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Peyment pey manth'
+      }
+    }
+});
 }

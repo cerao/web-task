@@ -3,7 +3,7 @@
 
 
 <!DOCTYPE html>
-<html manifest="cache.manifest" lang="en">
+<html manifest="/cache.manifest" lang="en">
 <head>
 <link rel="stylesheet" href="style.css" />
 <script type="text/javascript" src="script.js"></script>
@@ -71,49 +71,7 @@
 </div>
 
 
-<script>
-new Chart(document.getElementById("bar-chart"),{
-    type: 'bar',
-    data: {
-      labels: ["jan", "Feb", "mar", "Apr", "may","iun","iul","evg","sef","oqt","nov","dec"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd",],
-          data: [28,27,74,74,43,85,96,48,76,86,152]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Peyment pey manth'
-      }
-    }
-});
-
-new Chart(document.getElementById("bar-chart_one"),{
-    type: 'bar',
-    data: {
-      labels: ["jan", "Feb", "mar", "Apr", "may","iun","iul","evg","sef","oqt","nov","dec"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd","#3e95cd",],
-          data: [28,27,74,74,43,85,96,48,76,86,152]
-        }
-      ]
-    },
-    options: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Peyment pey manth'
-      }
-    }
-});
-</script>
+<script> chart();</script>
 
 
 <div id="myModal" class="modal">
@@ -159,4 +117,4 @@ new Chart(document.getElementById("bar-chart_one"),{
 </div>
 </body>
 </html>
-<script type="text/javascript" src="catch.js"></script>
+
