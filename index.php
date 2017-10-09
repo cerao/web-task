@@ -1,7 +1,9 @@
 
 
+
+
 <!DOCTYPE html>
-<html>
+<html manifest="cache.manifest" lang="en">
 <head>
 <link rel="stylesheet" href="style.css" />
 <script type="text/javascript" src="script.js"></script>
@@ -157,4 +159,4 @@ new Chart(document.getElementById("bar-chart_one"),{
 </div>
 </body>
 </html>
-
+<script type="text/javascript" src="catch.js"></script>
