@@ -6,7 +6,7 @@
 
 
 
-
+var category_name;
 function show_filter() {
     var x = document.getElementById("base");
     if (x.style.display === "none") {
@@ -44,6 +44,7 @@ function add(){
     var fnn = document.getElementById("categoryID").value;
     var date = document.getElementById("dateID").value;
     var textID = document.getElementById("textID").value;
+
     if (fn!='' && ln!='' && fnn!='' && date!=''){
         var vars = "same_payment="+fn+"&amount="+ln+"&categoryID="+fnn+"&date="+date+"&textID="+textID;
         hr.open("POST", url, true);
@@ -53,6 +54,9 @@ function add(){
             var return_data = hr.responseText;
             if (return_data=='ok'){
                 close_wind();
+                if (category_name==fnn) {
+                    category(category_name);
+                }
             }
             else{
                 alert("gtxovt sheavsot velebi")
@@ -67,6 +71,7 @@ function add(){
     }
 }
 function index(value){
+    category_name = value;
     var hr = new XMLHttpRequest();
     var url = "default.php";
     var clasname;
@@ -111,6 +116,7 @@ function category(value){
     var url = "test.php";
     var clasname;
     var p=0;
+    category_name = value;
 
     var from = document.getElementById("from").value;
     var to = document.getElementById("to").value;
